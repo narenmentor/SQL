@@ -1,0 +1,215 @@
+CREATE TABLE products (
+    product_id INT PRIMARY KEY AUTO_INCREMENT,
+    product_name VARCHAR(100),
+    category VARCHAR(50),
+    price DECIMAL(10, 2),
+    rating DECIMAL(3, 2),
+    stock_status VARCHAR(10),
+    launch_date DATE
+);
+
+
+INSERT INTO products (product_name, category, price, rating, stock_status, launch_date) VALUES
+('Laptop A', 'Electronics', 750.00, 4.5, 'In Stock', '2023-02-15'),
+('Laptop B', 'Electronics', 850.00, 4.2, 'Out of Stock', '2023-05-20'),
+('Phone X', 'Electronics', 499.99, 3.9, 'In Stock', '2023-01-10'),
+('Phone Y', 'Electronics', 699.99, NULL, 'In Stock', '2023-03-12'),
+('Tablet T', 'Electronics', 300.00, 4.0, 'In Stock', '2023-06-10'),
+('Tablet U', 'Electronics', 399.99, 4.7, 'Out of Stock', '2023-07-11'),
+('Headphone H1', 'Accessories', 99.99, 4.1, 'In Stock', '2023-02-01'),
+('Headphone H2', 'Accessories', 149.99, 3.8, 'In Stock', '2023-03-22'),
+('Smartwatch S', 'Wearables', 199.99, 4.6, 'In Stock', '2023-04-15'),
+('Smartwatch W', 'Wearables', 299.99, 4.3, 'Out of Stock', '2023-05-15'),
+('Camera C1', 'Cameras', 599.99, 4.4, 'In Stock', '2023-06-20'),
+('Camera C2', 'Cameras', 699.99, NULL, 'In Stock', '2023-07-25'),
+('Monitor M1', 'Electronics', 189.99, 3.7, 'Out of Stock', '2023-08-02'),
+('Monitor M2', 'Electronics', 299.99, 4.0, 'In Stock', '2023-08-22'),
+('Keyboard K1', 'Accessories', 49.99, NULL, 'In Stock', '2023-09-10'),
+('Keyboard K2', 'Accessories', 59.99, 4.1, 'In Stock', '2023-10-01'),
+('Mouse M1', 'Accessories', 19.99, 3.5, 'Out of Stock', '2023-09-05'),
+('Mouse M2', 'Accessories', 29.99, 4.0, 'In Stock', '2023-10-12'),
+('Speaker S1', 'Audio', 129.99, 4.2, 'In Stock', '2023-11-05'),
+('Speaker S2', 'Audio', 159.99, NULL, 'In Stock', '2023-12-10'),
+('Charger C', 'Accessories', 25.00, 4.5, 'Out of Stock', '2023-07-15'),
+('Adapter A1', 'Accessories', 15.00, 4.3, 'In Stock', '2023-06-30'),
+('Adapter A2', 'Accessories', 18.50, NULL, 'Out of Stock', '2023-09-18'),
+('TV T1', 'Electronics', 799.99, 4.6, 'In Stock', '2023-11-01'),
+('TV T2', 'Electronics', 899.99, NULL, 'Out of Stock', '2023-12-15'),
+('Refrigerator R', 'Appliances', 1200.00, 4.9, 'In Stock', '2023-01-20'),
+('Washer W', 'Appliances', 999.99, 4.7, 'Out of Stock', '2023-04-28'),
+('Dryer D', 'Appliances', 850.00, 4.5, 'In Stock', '2023-03-19'),
+('Air Purifier A', 'Appliances', 550.00, NULL, 'Out of Stock', '2023-02-17'),
+('Microwave M', 'Appliances', 249.99, 4.1, 'In Stock', '2023-05-13');
+
+
+1. DISTINCT
+
+Q1: List all unique categories of products available.
+
+SELECT DISTINCT category FROM products;
+
+
+Q2: Find all unique stock statuses in the product table.
+
+SELECT DISTINCT stock_status FROM products;
+
+
+Q3: Show distinct launch years of products.
+SELECT DISTINCT YEAR(launch_date) AS launch_year FROM products;
+
+
+
+2. AS (Aliases)
+
+Q1: Display product_name and price, renaming them as Product and Cost, respectively.
+
+SELECT product_name AS Product, price AS Cost FROM products;
+
+
+Q2: Show category and the rating of products, using Category and Rating as aliases.
+
+SELECT category AS Category, rating AS Rating FROM products;
+
+
+Q3: List product_id and stock_status, renaming them to ID and Availability.
+
+SELECT product_id AS ID, stock_status AS Availability FROM products;
+
+
+3. WHERE
+
+Q1: Find products in the "Electronics" category.
+
+SELECT * FROM products WHERE category = 'Electronics';
+
+
+Q2: Retrieve products priced above 500.
+
+SELECT * FROM products WHERE price > 500;
+
+
+Q3: Find products launched after March 1, 2023
+
+SELECT * FROM products WHERE launch_date > '2023-03-01';
+
+
+4. Arithmetic Operators
+
+Q1: Show the product name and price with a 10% discount applied.
+
+SELECT product_name, price * 0.9 AS discounted_price FROM products;
+
+Q2: Find products where the price is more than double the rating.
+SELECT * FROM products WHERE price > (rating * 2);
+
+
+Q3: Calculate the total cost for 5 units of each product.
+SELECT product_name, price * 5 AS total_cost FROM products;
+
+
+
+5. Comparison Operators
+
+
+Q1: Find products with a rating of exactly 4.5.
+SELECT * FROM products WHERE rating = 4.5;
+
+Q2: Show products where the price is less than or equal to 100.
+SELECT * FROM products WHERE price <= 100;
+
+Q3: Retrieve products with ratings not equal to 4.2.
+SELECT * FROM products WHERE rating <> 4.2;
+
+
+6. Logical Operators
+
+Q1: Find products that are in stock and have a price above 500.
+SELECT * FROM products WHERE stock_status = 'In Stock' AND price > 500;
+
+
+Q2: Get products that are either in the "Electronics" or "Appliances" category.
+
+SELECT * FROM products WHERE category = 'Electronics' OR category = 'Appliances';
+
+
+Q3: Retrieve products that are out of stock and have no rating.
+
+SELECT * FROM products WHERE stock_status = 'Out of Stock' AND rating IS NULL;
+
+
+7. IS NULL / IS NOT NULL
+
+Q1: Find products that don’t have a rating.
+SELECT * FROM products WHERE rating IS NULL;
+
+
+Q2: Show products that have a defined rating.
+SELECT * FROM products WHERE rating IS NOT NULL;
+
+
+Q3: Retrieve products with a missing stock status.
+SELECT * FROM products WHERE stock_status IS NULL;
+
+8. IN / NOT IN
+Q1: Find products in the "Electronics" or "Appliances" categories.
+
+SELECT * FROM products WHERE category IN ('Electronics', 'Appliances');
+
+
+Q2: Show products that are not in "Wearables" or "Cameras".
+SELECT * FROM products WHERE category NOT IN ('Wearables', 'Cameras');
+
+
+Q3: Retrieve products launched in January or February 2023.
+SELECT * FROM products WHERE MONTH(launch_date) IN (1, 2) AND YEAR(launch_date) = 2023;
+
+
+9. BETWEEN / NOT BETWEEN
+Q1: Find products priced between 100 and 500.
+SELECT * FROM products WHERE price BETWEEN 100 AND 500;
+
+
+Q2: Retrieve products with a rating between 4.0 and 4.5.
+SELECT * FROM products WHERE rating BETWEEN 4.0 AND 4.5;
+
+Q3: Show products launched between March and June 2023.
+SELECT * FROM products WHERE launch_date BETWEEN '2023-03-01' AND '2023-06-30';
+
+
+10. LIKE / NOT LIKE
+Q1: Find products with names starting with "Phone".
+SELECT * FROM products WHERE product_name LIKE 'Phone%';
+
+Q2: Retrieve products with a name containing "Watch".
+SELECT * FROM products WHERE product_name LIKE '%Watch%';
+
+
+Q3: Show products whose names do not end with the letter "A".
+
+SELECT * FROM products WHERE product_name NOT LIKE '%A';
+
+
+Q4: Retrieve products with a name containing exactly five characters.
+SELECT * FROM products WHERE product_name LIKE '_____';
+
+Q5: Find products with names where the second letter is "o" (e.g., "Phone", "Mouse").
+
+SELECT * FROM products WHERE product_name LIKE '_o%';
+
+
+Q6: Product name either starts with b or p or s
+
+SELECT * FROM products 
+WHERE product_name LIKE 'B%' 
+   OR product_name LIKE 'S%' 
+   OR product_name LIKE 'P%';
+   
+alternate approach
+
+SELECT * FROM products 
+WHERE product_name REGEXP '^[BSP]';
+
+
+
+
+
