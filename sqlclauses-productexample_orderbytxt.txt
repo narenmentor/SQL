@@ -1,0 +1,90 @@
+ORDER BY
+1. List all products launched after January 1, 2023, ordered by launch date.
+SELECT * FROM products 
+WHERE launch_date > '2023-01-01'
+ORDER BY launch_date;
+
+
+2. Find all products sorted by category in ascending order and price in descending order.
+SELECT * FROM products 
+ORDER BY category ASC, price DESC;
+
+
+3. List products where stock is greater than 50, ordered by product name.
+SELECT * FROM products 
+WHERE stock > 50 
+ORDER BY product_name;
+
+
+LIMIT
+1. Retrieve the top 10 most expensive products.
+SELECT * FROM products 
+ORDER BY price DESC 
+LIMIT 10;
+
+
+2. Display the first 5 products launched in 2022.
+SELECT * FROM products 
+WHERE YEAR(launch_date) = 2022 
+ORDER BY launch_date 
+LIMIT 5;
+
+
+3. Show the first 3 products for each category sorted by price.
+SELECT * FROM products 
+ORDER BY category, price 
+LIMIT 3;
+
+
+Aggregate Functions
+1. Calculate the total stock quantity across all products.
+SELECT SUM(stock) AS total_stock FROM products;
+
+
+2. Find the minimum price of products in the 'Electronics' category.
+SELECT MIN(price) AS min_price FROM products 
+WHERE category = 'Electronics';
+
+
+3. Calculate the average price of all products in the 'Appliances' category.
+SELECT AVG(price) AS avg_price FROM products 
+WHERE category = 'Appliances';
+
+
+GROUP BY
+1. List the maximum price of products for each category.
+SELECT category, MAX(price) AS max_price FROM products 
+GROUP BY category;
+
+
+2. Calculate the average stock quantity for each supplier.
+SELECT supplier_id, AVG(stock) AS avg_stock FROM products 
+GROUP BY supplier_id;
+
+
+3. List the total stock for each product type containing 'Smart' in the name.
+SELECT product_type, SUM(stock) AS total_stock FROM products 
+WHERE product_type LIKE '%Smart%' 
+GROUP BY product_type;
+
+
+HAVING
+1. Find categories with fewer than 5 unique products.
+SELECT category, COUNT(DISTINCT product_id) AS product_count FROM products 
+GROUP BY category 
+HAVING COUNT(DISTINCT product_id) < 5;
+
+
+2. List suppliers with an average price of their products above 1000.
+SELECT supplier_id, AVG(price) AS avg_price FROM products 
+GROUP BY supplier_id 
+HAVING AVG(price) > 1000;
+
+
+3. Find product types with an average stock quantity greater than 50.
+SELECT product_type, AVG(stock) AS avg_stock FROM products 
+GROUP BY product_type 
+HAVING AVG(stock) > 50;
+
+
+
